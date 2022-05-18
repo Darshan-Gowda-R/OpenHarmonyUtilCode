@@ -20,9 +20,6 @@ import dataStorage from '@ohos.data.storage';
 import dataRdb from '@ohos.data.rdb';
 import bundleManager from "@ohos.bundle";
 
-const STORE_CONFIG = "book.db"
-let rdbStore = undefined
-
 export class CleanUtils {
   constructor() {
 
