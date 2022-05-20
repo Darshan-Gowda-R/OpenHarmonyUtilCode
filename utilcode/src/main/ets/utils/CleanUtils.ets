@@ -24,13 +24,10 @@ export class CleanUtils {
   constructor() {
 
   }
-
   async cleanInternalCache() {
     var context = ability_featureAbility.getContext();
     var path;
-
     context.getCacheDir((error, data) => {
-
       if (error) {
         console.error('Failed to obtain Cache Directory. Cause: ' + error.message);
         return error.message;
@@ -38,7 +35,6 @@ export class CleanUtils {
       console.info('Cache directory Obtained. Data: ' + JSON.stringify(data))
       path = data;
       fileio.rmdirSync(data);
-
     })
     return path;
   }
@@ -47,7 +43,6 @@ export class CleanUtils {
     var path;
     var context = ability_featureAbility.getContext();
     context.getFilesDir((error, data) => {
-
       if (error) {
         console.error('Failed to obtain the file directory. Cause: ' + error.message + 'Code: ' + error.code);
         return error.message;
@@ -87,11 +82,19 @@ export class CleanUtils {
   async cleanInternalDbByName(dbName: string) {
     if (dbName == null) {
       console.error("No Database Name Entered");
+      prompt.showToast({
+        message: "Database Delete Fail => No Database Name Entered",
+        duration: 2000
+      })
       return "Enter Database Name";
     }
     else {
       dataRdb.deleteRdbStore(this, dbName, function (err, rdbStore) {
         console.info('Database Delete Success: =>' + dbName);
+        prompt.showToast({
+          message: "Database Delete Success => " + dbName,
+          duration: 2000
+        })
       })
       return dbName;
     }
@@ -107,7 +110,6 @@ export class CleanUtils {
         return;
       }
       console.info('Application Information fetched successfully. Data:' + JSON.stringify(data));
-
       dbPath = data.entryDir + '/database';
       console.log('DB Directory: ' + dbPath);
 
@@ -117,8 +119,27 @@ export class CleanUtils {
   }
 
   async cleanCustomDir(dirPath: string) {
-
-    fileio.rmdirSync(dirPath);
-    return dirPath;
+    if (dirPath == null) {
+      console.error("No Directory Path Entered");
+      prompt.showToast({
+        message: "Directory Clean Fail => No Directory Path Entered",
+        duration: 2000
+      })
+      return "Enter Directory path";
+    }
+    else{
+      var stringArray = dirPath.split('/');
+      if(stringArray.length > 0){
+        fileio.rmdirSync(dirPath);
+        prompt.showToast({
+          message: "Directory Clean Success => " + dirName,
+          duration: 2000
+        })
+        return dirPath;
+      }
+      else{
+        return "Enter Valid Directory Path";
+      }
+    }
   }
 }

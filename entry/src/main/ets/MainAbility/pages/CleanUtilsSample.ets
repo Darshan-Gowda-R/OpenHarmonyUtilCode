@@ -28,7 +28,7 @@ struct Index {
   @State data: string = 'path'
   @State dbText: string = ""
   @State dirText: string = ""
-  private index: CleanUtils = new CleanUtils();
+  private cleanutils: CleanUtils = new CleanUtils();
 
   aboutToAppear() {
     var context = ability_featureAbility.getContext()
@@ -59,7 +59,7 @@ struct Index {
   }
 
   cleanInternalCache() {
-    this.index.cleanInternalCache().then((path) => {
+    this.cleanutils.cleanInternalCache().then((path) => {
       this.data = path;
       prompt.showToast({
         message: "Internal Cache Delete Success => " + this.data,
@@ -69,7 +69,7 @@ struct Index {
   }
 
   cleanInternalFiles() {
-    this.index.cleanInternalFiles().then((path) => {
+    this.cleanutils.cleanInternalFiles().then((path) => {
       this.data = path;
       prompt.showToast({
         message: "Internal Files Delete Success: " + path,
@@ -79,7 +79,7 @@ struct Index {
   }
 
   cleanInternalSp() {
-    this.index.cleanInternalSp().then((path) => {
+    this.cleanutils.cleanInternalSp().then((path) => {
       this.data = path;
       prompt.showToast({
         message: "Shared Preference Delete Success => " + this.data,
@@ -89,25 +89,13 @@ struct Index {
   }
 
   cleanInternalDbByName(dbName: string) {
-
-    if (dbName != null) {
-      this.index.cleanInternalDbByName(dbName).then((name) => {
-        prompt.showToast({
-          message: "Database Delete Success => " + dbName,
-          duration: 2000
-        })
-      })
-    }
-    else {
-      prompt.showToast({
-        message: "Database Delete Fail => No Database Name Entered",
-        duration: 2000
-      })
-    }
+    this.cleanutils.cleanInternalDbByName(dbName).then((name) => {
+      console.log('Clean Internal DB By Name');
+    })
   }
 
   cleanInternalDbs() {
-    this.index.cleanInternalDbs().then((path) => {
+    this.cleanutils.cleanInternalDbs().then((path) => {
       this.data = path;
       console.log("Internal Databases Cleaned: " + this.data);
       prompt.showToast({
@@ -118,20 +106,9 @@ struct Index {
   }
 
   cleanCustomDir(dirName: string) {
-    if (dirName != null) {
-      this.index.cleanCustomDir(dirName).then((name) => {
-        prompt.showToast({
-          message: "Directory Clean Success => " + dirName,
-          duration: 2000
-        })
-      })
-    }
-    else {
-      prompt.showToast({
-        message: "Directory Clean Fail => No Directory Path Entered",
-        duration: 2000
-      })
-    }
+    this.cleanutils.cleanCustomDir(dirName).then((name) => {
+          console.log('Clean Custom Directory');
+    })
   }
 
   build() {
@@ -190,7 +167,6 @@ struct Index {
               .borderRadius(10)
           }
         }
-
       }.height(50).margin(5)
 
       Row() {
@@ -224,7 +200,6 @@ struct Index {
               .borderRadius(10)
           }
         }
-
       }.height(50).margin(5)
     }
   }

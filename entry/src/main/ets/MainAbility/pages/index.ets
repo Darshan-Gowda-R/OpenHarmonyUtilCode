@@ -26,7 +26,6 @@ struct Index {
           .height(50)
           .onClick(() => router.push({ uri: "pages/CleanUtilsSample" }))
       }.width('100%')
-
     }.height('100%')
   }
 }
