@@ -90,7 +90,12 @@ struct Index {
 
   cleanInternalDbByName(dbName: string) {
     this.cleanutils.cleanInternalDbByName(dbName).then((name) => {
-      console.log('Clean Internal DB By Name');
+      this.data = name;
+      console.log("Clean Internal Database by Name");
+      prompt.showToast({
+        message: this.data,
+        duration: 2000
+      })
     })
   }
 
@@ -107,7 +112,11 @@ struct Index {
 
   cleanCustomDir(dirName: string) {
     this.cleanutils.cleanCustomDir(dirName).then((name) => {
-          console.log('Clean Custom Directory');
+      console.log('Clean Custom Directory');
+      prompt.showToast({
+        message: name,
+        duration: 2000
+      })
     })
   }
 
