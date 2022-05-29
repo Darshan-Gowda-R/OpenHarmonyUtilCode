@@ -19,18 +19,14 @@ import geolocation1 from '@system.geolocation';
 import geolocation from '@ohos.geolocation';
 import wantAgent from '@ohos.wantAgent';
 
-
-
 export class LocationUtils{
-
+  
   mYLocationListener : myLocationListener = null ;
   mListener : OnLocationChangeListener = null;
 
   constructor(){
     console.info(` u can't instantiate me...`)
   }
-
-
 
   isGpsEnabled(){
 
@@ -43,9 +39,6 @@ export class LocationUtils{
     }
 
   }
-
-
-
 
   //  getLocation(context, listener)
   //  {
@@ -91,7 +84,6 @@ export class LocationUtils{
     }
   }
 
-
   openGpsSettings(){
 
             wantAgent.getWantAgent(
@@ -126,16 +118,10 @@ export class LocationUtils{
 
   }
 
-
-
-
-
-
   register(minTime, minDistance, listener) {
+
     if (listener == null) return false;
-
     var locationEnable = false
-
     if(geolocation.isLocationEnabled()){
       locationEnable = true;
       console.log('success get location type');
@@ -191,9 +177,7 @@ export class LocationUtils{
   }
 
 
-
-
-  unregister() {
+unregister() {
 
     if (geolocation.isLocationEnabled()) {
       if (this.mYLocationListener != null) {
@@ -211,6 +195,7 @@ export class LocationUtils{
 
 
   getCountryName(latitude :number,longitude :number) {
+
     var geoCode= {
       "latitude":latitude,
       "longitude":longitude,
@@ -241,6 +226,7 @@ export class LocationUtils{
 
 
   getAddress(latitude : number,longitude : number){
+    
     var geoCode= {
       "latitude":latitude,
       "longitude":longitude,
@@ -256,6 +242,7 @@ export class LocationUtils{
 
 
   getStreet(latitude,longitude){
+    
     let geoCode= {
       "latitude":latitude,
       "longitude":longitude,
@@ -320,10 +307,7 @@ export class LocationUtils{
   }
 }
 
-
-
 export class myLocationListener implements OnLocationChangeListener{
-
 
   onLocationChanged(location){
     var requestInfo = {'priority': 0x203, 'scenario': 0x300, 'timeInterval': 0, 'distanceInterval': 0, 'maxAccuracy': 0}
@@ -334,7 +318,6 @@ export class myLocationListener implements OnLocationChangeListener{
     geolocation
 
   }
-
 
   onStatusChanged(){
     var requestInfo = {'priority': 0x203, 'scenario': 0x300, 'timeInterval': 0, 'distanceInterval': 0, 'maxAccuracy': 0};
@@ -352,27 +335,22 @@ export class myLocationListener implements OnLocationChangeListener{
           break;
 
       }
-
     }
     geolocation.on('locationServiceState', locationServiceState);
   }
 
   onProviderEnabled(provider){
-
   }
   onProviderDisabled(provider){
-
   }
   getLastKnownLocation(location){
-
   }
+
 }
-
-
 
 export interface OnLocationChangeListener {
 
-  /**
+/**
    * 获取最后一次保留的坐标
    *
    * @param location 坐标
