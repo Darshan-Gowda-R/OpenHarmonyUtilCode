@@ -219,9 +219,9 @@ export class LocationUtils{
 
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
       console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
-      console.log('Country Name :  ' + data[3])
+      console.log('Country Name :  ' + data[0])
       //data Object : contain all the data like country , state , locality and street
-      return data.countryName == null ? "unknown" : data.countryName
+      return data[0].countryName == null ? "unknown" : data[0].countryName
     });
   }
 
@@ -234,8 +234,8 @@ export class LocationUtils{
     var locality
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
       console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
-      console.log('locality : '+ data.locality);
-      return data.Locality == null ? "unknown" : data.Locality
+      console.log('locality : '+ data[0].locality);
+      return data[0].locality == null ? "unknown" : data[0].locality
     });
   }
 
@@ -265,7 +265,7 @@ export class LocationUtils{
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
       console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
       console.log('Street : '+data )
-      return data.roadName == null ? "unknown" : data.roadName
+      return data[0].roadName == null ? "unknown" : data[0].roadName
     });
   }
 
@@ -326,15 +326,18 @@ export class myLocationListener implements OnLocationChangeListener{
 
 
   onLocationChanged(location){
-
-    var locationChange = (err, location) => {
-      console.log('locationChanger: ' + err + 'data: ' + JSON.stringify(location));
+    var requestInfo = {'priority': 0x203, 'scenario': 0x300, 'timeInterval': 0, 'distanceInterval': 0, 'maxAccuracy': 0}
+    var locationChange = (location) => {
+      console.log('locationChanger: '+'   '+'data: ' + JSON.stringify(location));
     };
-    geolocation.on('locationChange', location , locationChange);
+    geolocation.on('locationChange', requestInfo, locationChange);
+    geolocation
+
   }
 
 
   onStatusChanged(){
+    var requestInfo = {'priority': 0x203, 'scenario': 0x300, 'timeInterval': 0, 'distanceInterval': 0, 'maxAccuracy': 0};
     var locationServiceState = (state) => {
       console.log('locationServiceState: ' + state);
 
@@ -353,6 +356,7 @@ export class myLocationListener implements OnLocationChangeListener{
     }
     geolocation.on('locationServiceState', locationServiceState);
   }
+
   onProviderEnabled(provider){
 
   }
