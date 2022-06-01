@@ -56,7 +56,8 @@
         },
         "pages": [
           "pages/index",
-          "pages/CleanUtilsSample"
+          "pages/CleanUtilsSample",
+          "pages/LocationUtilsSample"
         ],
         "name": ".MainAbility",
         "window": {
