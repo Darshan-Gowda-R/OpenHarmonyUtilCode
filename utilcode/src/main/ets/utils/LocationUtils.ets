@@ -266,25 +266,10 @@ export class myLocationListener implements OnLocationChangeListener {
 }
 
 export interface OnLocationChangeListener {
-  /**
-   * 获取最后一次保留的坐标
-   *
-   * @param location 坐标
-   */
+
   getLastKnownLocation(location);
-  /**
-   * 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-   *
-   * @param location 坐标
-   */
+
   onLocationChanged(location);
-  /**
-   * provider的在可用、暂时不可用和无服务三个状态直接切换时触发此函数
-   *
-   * @param provider 提供者
-   * @param status   状态
-   * @param extras   provider可选包
-   */
-  //onStatusChanged(provider :string,status : number,extras);//位置状态发生改变
+
   onStatusChanged()
 }
