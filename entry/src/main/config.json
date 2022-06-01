@@ -69,8 +69,24 @@
     "reqPermissions": [
       {
         "name": "ohos.permission.LOCATION",
-        "name": "ohos.permission.LOCATION_IN_BACKGROUND"
+       
+      },{
+        "name" : "ohos.permission.LOCATION_IN_BACKGROUND"
       }
     ]
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
