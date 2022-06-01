@@ -3,19 +3,16 @@ import { LocationUtils } from "@ohos/utilcode"
 import { OnLocationChangeListener } from "@ohos/utilcode"
 import { myLocationListener } from "@ohos/utilcode"
 
-
-let locationUtils1 = new LocationUtils();
-//let myLocation = new myLocationListener
-let address = locationUtils1.getAddress()
-
+let locationUtil = new LocationUtils();
+let address = locationUtil.getAddress()
 
 @Entry
 @Component
 struct Index {
-
   @State message: string = 'LocationUtil Library'
-  private locationUtils : LocationUtils = new LocationUtils();
+  private locationUtils: LocationUtils = new LocationUtils();
   private myLocation = new myLocationListener();
+
   build() {
     Row() {
       Column() {
@@ -36,7 +33,7 @@ struct Index {
           .borderRadius(10)
         Button('register', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.register(10,23,40);
+            this.locationUtils.register(10, 23, 40);
           })
           .borderWidth(2)
           .borderRadius(10)
@@ -48,37 +45,37 @@ struct Index {
           .borderRadius(10)
         Button('get country name', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.getCountryName(12.433,123.3451);
+            this.locationUtils.getCountryName(12.433, 123.3451);
           })
           .borderWidth(2)
           .borderRadius(10)
         Button('get street', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.getStreet(12.433,123.3451);
+            this.locationUtils.getStreet(12.433, 123.3451);
           })
           .borderWidth(2)
           .borderRadius(10)
         Button('Locality', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.getLocality(12.433,123.3451);
+            this.locationUtils.getLocality(12.433, 123.3451);
           })
           .borderWidth(2)
           .borderRadius(10)
         Button('Address', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.getAddress(12.433,123.3451);
+            this.locationUtils.getAddress(12.433, 123.3451);
           })
           .borderWidth(2)
           .borderRadius(10)
         Button('is better location', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.isBetterLocation(address,address);
+            this.locationUtils.isBetterLocation(address, address);
           })
           .borderWidth(2)
           .borderRadius(10)
         Button('is same provider', { type: ButtonType.Normal, stateEffect: true })
           .onClick((event: ClickEvent) => {
-            this.locationUtils.isSameProvider(address,address);
+            this.locationUtils.isSameProvider(address, address);
           })
           .borderWidth(2)
           .borderRadius(10)
