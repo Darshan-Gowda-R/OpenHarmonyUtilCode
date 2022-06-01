@@ -91,8 +91,8 @@ export class LocationUtils{
                     wants: [
                         {
                             deviceId: "",
-                            bundleName: "ohos.acts.form",
-                            abilityName: "ohos.",
+                            bundleName: "com.example.openharmonyutilcode",
+                            abilityName: ".MainAbility",
                             uri: "",
                             type: "phone",
                             action: "ohos.want.action.dial",
@@ -260,6 +260,7 @@ unregister() {
   isBetterLocation(newLocation, currentBestLocation){
 
     if(currentBestLocation == null){
+      console.log('is better location');
       return true
     }
 
@@ -278,8 +279,10 @@ unregister() {
     var isNewer = timeDelta > 0;
 
     if (isSignificantlyNewer) {
+      console.log('is better location');
       return true;
     } else if (isSignificantlyOlder) {
+      console.log('is not a better location');
       return false;
     }
 
@@ -290,19 +293,25 @@ unregister() {
     var isFromSameProvider = this.isSameProvider(newLocation.getProvider(), currentBestLocation.getProvider());
 
     if (isMoreAccurate) {
+      console.log('is better location');
       return true;
     } else if (isNewer && !isLessAccurate) {
+      console.log('is better location');
       return true;
     } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+      console.log('is better location');
       return true;
     }
+    console.log('is not a better location');
     return false;
   }
 
   isSameProvider(provider0,provider1){
     if (provider0 == null) {
+      console.log('is not Same provider');
       return provider1 == null;
     }
+    console.log('is same provider');
     return provider0.equals(provider1);
   }
 }
@@ -315,7 +324,7 @@ export class myLocationListener implements OnLocationChangeListener{
       console.log('locationChanger: '+'   '+'data: ' + JSON.stringify(location));
     };
     geolocation.on('locationChange', requestInfo, locationChange);
-    geolocation
+    //geolocation
 
   }
 
