@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { LocationUtils } from "@ohos/utilcode"
-import { OnLocationChangeListener } from "@ohos/utilcode"
 import { myLocationListener } from "@ohos/utilcode"
 
 let locationUtil = new LocationUtils();
