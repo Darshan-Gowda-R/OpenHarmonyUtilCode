@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { LocationUtils } from "@ohos/utilcode"
 import { myLocationListener } from "@ohos/utilcode"
 
 let locationUtil = new LocationUtils();
-let address = locationUtil.getAddress()
+let address = locationUtil.getAddress(12.433, 123.3451)
 
 @Entry
 @Component
