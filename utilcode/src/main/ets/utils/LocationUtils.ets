@@ -52,13 +52,13 @@ export class LocationUtils {
       console.log('success get location type');
     } else {
       locationEnable = false;
-      console.log('failed to get location type');
+      console.log('failed to get location type location not enabled');
+      return false
     }
     if (locationEnable && geolocation.isGeoServiceAvailable()) {
       console.log("LocationUtils 无法定位，请打开定位服务");
-      return false;
+      return true;
     }
-    var location1: OnLocationChangeListener;
     var location
     geolocation.getLastLocation((err, data) => {
       console.log('getLastLocation: ' + err + " data: " + JSON.stringify(data));
@@ -67,34 +67,25 @@ export class LocationUtils {
     systemGeolocation.getLocation({
       success: function (data) {
         console.log('success get location data. latitude:' + data.latitude);
+        return true
       },
       fail: function (data, code) {
         console.log('fail to get location. code:' + code + ', data:' + data);
       },
     });
-    if (location != null) {
-      systemGeolocation.getLocation({
-        success: function (data) {
-          console.log('success get location data :' + JSON.stringify(data));
-          location = data
-        },
-        fail: function (data, code) {
-          console.log('fail to get location. code:' + code + ', data:' + data);
-        },
-      });
-    }
     if (this.mYLocationListener == null) {
       systemGeolocation.getLocation({
         success: function (data) {
           console.log('success get location data. longitude:' + data.longitude);
           this.mYLocationListener = data
+          return true
         },
         fail: function (data, code) {
           console.log('fail to get location. code:' + code + ', data:' + data);
+          return false
         },
       });
     }
-    return true
   }
 
   unregister() {
