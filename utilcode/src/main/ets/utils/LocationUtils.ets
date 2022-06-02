@@ -230,7 +230,7 @@ export class myLocationListener implements OnLocationChangeListener {
     var locationChange = (location) => {
       console.log('locationChanger: ' + '   ' + 'data: ' + JSON.stringify(location));
     };
-    geolocation.on('locationChange', requestInfo, locationChange);
+    return geolocation.on('locationChange', requestInfo, locationChange);
   }
 
   onStatusChanged() {
@@ -252,7 +252,7 @@ export class myLocationListener implements OnLocationChangeListener {
           break;
       }
     }
-    geolocation.on('locationServiceState', locationServiceState);
+    return geolocation.on('locationServiceState', locationServiceState);
   }
 
   onProviderEnabled(provider) {
