@@ -64,15 +64,6 @@ export class LocationUtils {
       console.log('getLastLocation: ' + err + " data: " + JSON.stringify(data));
       location = data
     });
-    systemGeolocation.getLocation({
-      success: function (data) {
-        console.log('success get location data. latitude:' + data.latitude);
-        return true
-      },
-      fail: function (data, code) {
-        console.log('fail to get location. code:' + code + ', data:' + data);
-      },
-    });
     if (this.mYLocationListener == null) {
       systemGeolocation.getLocation({
         success: function (data) {
@@ -112,7 +103,6 @@ export class LocationUtils {
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
       console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
       console.log('Country Name :  ' + data[0])
-      //data Object : contain all the data like country , state , locality and street
       return data[0].countryName == null ? "unknown" : data[0].countryName
     });
   }
