@@ -15,7 +15,6 @@
 
 import systemGeolocation from '@system.geolocation';
 import geolocation from '@ohos.geolocation';
-import wantAgent from '@ohos.wantAgent';
 
 export class LocationUtils {
   mYLocationListener: myLocationListener = null ;
@@ -152,7 +151,7 @@ export class LocationUtils {
       console.log('is better location');
       return true
     }
-    var timeDelta = newLocation.getTime() - currentBestLocation.getTime();
+    var timeDelta = newLocation.time - currentBestLocation.time;
     var isSignificantlyNewer
     var isSignificantlyOlder
     if (timeDelta > 2) {
@@ -170,18 +169,17 @@ export class LocationUtils {
       console.log('is not a better location');
       return false;
     }
-    var accuracyDelta = (newLocation.getAccuracy() - currentBestLocation.getAccuracy());
+    var accuracyDelta = (newLocation.accuracy - currentBestLocation.accuracy);
     var isLessAccurate = accuracyDelta > 0;
     var isMoreAccurate = accuracyDelta < 0;
     var isSignificantlyLessAccurate = accuracyDelta > 200;
-    var isFromSameProvider = this.isSameProvider(newLocation.getProvider(), currentBestLocation.getProvider());
     if (isMoreAccurate) {
       console.log('is better location');
       return true;
     } else if (isNewer && !isLessAccurate) {
       console.log('is better location');
       return true;
-    } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+    } else if (isNewer && !isSignificantlyLessAccurate) {
       console.log('is better location');
       return true;
     }
@@ -204,9 +202,9 @@ export class myLocationListener implements OnLocationChangeListener {
     var requestInfo = {
       'priority': 0x203,
       'scenario': 0x300,
-      'timeInterval': 0,
-      'distanceInterval': 0,
-      'maxAccuracy': 0
+      'timeInterval': 2000,
+      'distanceInterval': 5,
+      'maxAccuracy': 5
     }
     var locationChange = (location) => {
       console.log('locationChanger: ' + '   ' + 'data: ' + JSON.stringify(location));
@@ -218,9 +216,9 @@ export class myLocationListener implements OnLocationChangeListener {
     var requestInfo = {
       'priority': 0x203,
       'scenario': 0x300,
-      'timeInterval': 0,
-      'distanceInterval': 0,
-      'maxAccuracy': 0
+      'timeInterval': 2000,
+      'distanceInterval': 5,
+      'maxAccuracy': 5
     };
     var locationServiceState = (state) => {
       console.log('locationServiceState: ' + state);
