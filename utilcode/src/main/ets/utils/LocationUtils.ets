@@ -15,6 +15,7 @@
 
 import systemGeolocation from '@system.geolocation';
 import geolocation from '@ohos.geolocation';
+import ability_featureAbility from '@ohos.ability.featureAbility'
 
 export class LocationUtils {
   mYLocationListener: myLocationListener = null ;
@@ -24,6 +25,18 @@ export class LocationUtils {
   }
 
   isGpsEnabled() {
+    var context = ability_featureAbility.getContext();
+    let permission = "ohos.permission.LOCATION";
+    let options = {
+      "pid": 12,
+      "uid": 0,
+    };
+    context.verifyPermission(permission, options)
+      .then((data) => {
+        console.info('permission is granted ');
+      }).catch((error) => {
+      console.error('permission is not granted ');
+    })
     if (geolocation.isGeoServiceAvailable()) {
       console.log('GPS is enabled !')
       return true
@@ -34,6 +47,18 @@ export class LocationUtils {
   }
 
   isLocationEnabled() {
+    var context = ability_featureAbility.getContext();
+    let permission = "ohos.permission.LOCATION";
+    let options = {
+      "pid": 12,
+      "uid": 0,
+    };
+    context.verifyPermission(permission, options)
+      .then((data) => {
+        console.info('permission is granted ');
+      }).catch((error) => {
+      console.error('permission is not granted ');
+    })
     if (geolocation.isLocationEnabled()) {
       console.log('Location is enabled !')
       return true
@@ -44,6 +69,18 @@ export class LocationUtils {
   }
 
   register(minTime, minDistance, listener) {
+    var context = ability_featureAbility.getContext();
+    let permission = "ohos.permission.LOCATION";
+    let options = {
+      "pid": 12,
+      "uid": 0,
+    };
+    context.verifyPermission(permission, options)
+      .then((data) => {
+        console.info('permission is granted ');
+      }).catch((error) => {
+      console.error('permission is not granted ');
+    })
     if (listener == null) return false;
     var locationEnable = false
     if (geolocation.isLocationEnabled()) {
@@ -60,18 +97,16 @@ export class LocationUtils {
     }
     var location
     geolocation.getLastLocation((err, data) => {
-      console.log('getLastLocation: ' + err + " data: " + JSON.stringify(data));
+      console.log('getLastLocation: ');
       location = data
     });
     if (this.mYLocationListener == null) {
       systemGeolocation.getLocation({
         success: function (data) {
-          console.log('success get location data. longitude:' + data.longitude);
           this.mYLocationListener = data
           return true
         },
         fail: function (data, code) {
-          console.log('fail to get location. code:' + code + ', data:' + data);
           return false
         },
       });
@@ -100,8 +135,6 @@ export class LocationUtils {
       "maxItems": 1
     }
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
-      console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
-      console.log('Country Name :  ' + data[0])
       return data[0].countryName == null ? "unknown" : data[0].countryName
     });
   }
@@ -114,8 +147,6 @@ export class LocationUtils {
     }
     var locality
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
-      console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
-      console.log('locality : ' + data[0].locality);
       return data[0].locality == null ? "unknown" : data[0].locality
     });
   }
@@ -127,8 +158,6 @@ export class LocationUtils {
       "maxItems": 1
     }
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
-      console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
-      console.log('Address  : ' + data)
       return data == null ? "unknown" : data
     });
   }
@@ -140,8 +169,6 @@ export class LocationUtils {
       "maxItems": 1
     }
     geolocation.getAddressesFromLocation(geoCode, (err, data) => {
-      console.log('getAddressesFromLocation: ' + err + " data: " + JSON.stringify(data));
-      console.log('Street : ' + data)
       return data[0].roadName == null ? "unknown" : data[0].roadName
     });
   }
@@ -151,10 +178,10 @@ export class LocationUtils {
       console.log('is better location');
       return true
     }
-    var timeDelta = newLocation.time - currentBestLocation.time;
+    var timeDelta = newLocation.timeStamp - currentBestLocation.timeStamp;
     var isSignificantlyNewer
     var isSignificantlyOlder
-    if (timeDelta > 2) {
+    if (timeDelta > 10) {
       isSignificantlyNewer = true;
       isSignificantlyOlder = false;
     } else {
@@ -170,8 +197,8 @@ export class LocationUtils {
       return false;
     }
     var accuracyDelta = (newLocation.accuracy - currentBestLocation.accuracy);
-    var isLessAccurate = accuracyDelta > 0;
-    var isMoreAccurate = accuracyDelta < 0;
+    var isLessAccurate = accuracyDelta > 10;
+    var isMoreAccurate = accuracyDelta < 10;
     var isSignificantlyLessAccurate = accuracyDelta > 200;
     if (isMoreAccurate) {
       console.log('is better location');
@@ -201,27 +228,27 @@ export class myLocationListener implements OnLocationChangeListener {
   onLocationChanged(location) {
     var requestInfo = {
       'priority': 0x203,
-      'scenario': 0x300,
+      'scenario': 0x301,
       'timeInterval': 2000,
       'distanceInterval': 5,
       'maxAccuracy': 5
     }
     var locationChange = (location) => {
-      console.log('locationChanger: ' + '   ' + 'data: ' + JSON.stringify(location));
+      console.log('locationChanger: ');
+      return location;
     };
-    return geolocation.on('locationChange', requestInfo, locationChange);
+    geolocation.on('locationChange', requestInfo, locationChange);
   }
 
   onStatusChanged() {
     var requestInfo = {
       'priority': 0x203,
-      'scenario': 0x300,
+      'scenario': 0x301,
       'timeInterval': 2000,
       'distanceInterval': 5,
       'maxAccuracy': 5
     };
     var locationServiceState = (state) => {
-      console.log('locationServiceState: ' + state);
       switch (state) {
         case 800:
           console.log("LocationUtils", "Gps is out of Service");
@@ -230,8 +257,9 @@ export class myLocationListener implements OnLocationChangeListener {
           console.log("LocationUtils", "Gps is Unavailable");
           break;
       }
+      return state
     }
-    return geolocation.on('locationServiceState', locationServiceState);
+    geolocation.on('locationServiceState', locationServiceState);
   }
 
   onProviderEnabled(provider) {
@@ -250,5 +278,5 @@ export interface OnLocationChangeListener {
 
   onLocationChanged(location);
 
-  onStatusChanged()
+  onStatusChanged();
 }
