@@ -25,18 +25,8 @@ export class LocationUtils {
   }
 
   isGpsEnabled() {
-    var context = ability_featureAbility.getContext();
-    let permission = "ohos.permission.LOCATION";
-    let options = {
-      "pid": 12,
-      "uid": 0,
-    };
-    context.verifyPermission(permission, options)
-      .then((data) => {
-        console.info('permission is granted ');
-      }).catch((error) => {
-      console.error('permission is not granted ');
-    })
+    this.requestPermission('ohos.permission.LOCATION')
+    this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
     if (geolocation.isGeoServiceAvailable()) {
       console.log('GPS is enabled !')
       return true
@@ -47,18 +37,8 @@ export class LocationUtils {
   }
 
   isLocationEnabled() {
-    var context = ability_featureAbility.getContext();
-    let permission = "ohos.permission.LOCATION";
-    let options = {
-      "pid": 12,
-      "uid": 0,
-    };
-    context.verifyPermission(permission, options)
-      .then((data) => {
-        console.info('permission is granted ');
-      }).catch((error) => {
-      console.error('permission is not granted ');
-    })
+    this.requestPermission('ohos.permission.LOCATION')
+    this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
     if (geolocation.isLocationEnabled()) {
       console.log('Location is enabled !')
       return true
@@ -69,18 +49,8 @@ export class LocationUtils {
   }
 
   register(minTime, minDistance, listener) {
-    var context = ability_featureAbility.getContext();
-    let permission = "ohos.permission.LOCATION";
-    let options = {
-      "pid": 12,
-      "uid": 0,
-    };
-    context.verifyPermission(permission, options)
-      .then((data) => {
-        console.info('permission is granted ');
-      }).catch((error) => {
-      console.error('permission is not granted ');
-    })
+    this.requestPermission('ohos.permission.LOCATION')
+    this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
     if (listener == null) return false;
     var locationEnable = false
     if (geolocation.isLocationEnabled()) {
@@ -221,6 +191,29 @@ export class LocationUtils {
     }
     console.log('is same provider');
     return provider0.equals(provider1);
+  }
+
+  requestPermission(request: string) {
+    var context = ability_featureAbility.getContext();
+    let permission = request;
+    let options = {
+      "pid": 12,
+      "uid": 0,
+    };
+    context.verifyPermission(permission, options)
+      .then((data) => {
+        console.info('permission is granted ');
+      }).catch((error) => {
+      console.error('permission is not granted ');
+      let permissions = [request];
+      let requestCode = 123
+      context.requestPermissionsFromUser(permissions, requestCode)
+        .then((data) => {
+          console.info('permission granted by user ');
+        }).catch((error) => {
+        console.error('permission not granted by user');
+      })
+    })
   }
 }
 
