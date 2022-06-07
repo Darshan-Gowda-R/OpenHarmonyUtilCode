@@ -20,13 +20,15 @@ import ability_featureAbility from '@ohos.ability.featureAbility'
 export class LocationUtils {
   mYLocationListener: myLocationListener = null ;
   mListener: OnLocationChangeListener = null;
-  constructor() {
-    console.info(` u can't instantiate me...`)
-  }
 
   isGpsEnabled() {
-    this.requestPermission('ohos.permission.LOCATION')
-    this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
+    var location = 0;
+    var backgroundLocation = 0;
+    location = this.requestPermission('ohos.permission.LOCATION')
+    backgroundLocation = this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
+    if (location == 0 && backgroundLocation == 0) {
+      return false
+    }
     if (geolocation.isGeoServiceAvailable()) {
       console.log('GPS is enabled !')
       return true
@@ -37,8 +39,13 @@ export class LocationUtils {
   }
 
   isLocationEnabled() {
-    this.requestPermission('ohos.permission.LOCATION')
-    this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
+    var location = 0;
+    var backgroundLocation = 0;
+    location = this.requestPermission('ohos.permission.LOCATION')
+    backgroundLocation = this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
+    if (location == 0 && backgroundLocation == 0) {
+      return false
+    }
     if (geolocation.isLocationEnabled()) {
       console.log('Location is enabled !')
       return true
@@ -49,8 +56,13 @@ export class LocationUtils {
   }
 
   register(minTime, minDistance, listener) {
-    this.requestPermission('ohos.permission.LOCATION')
-    this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
+    var for_location = 0;
+    var backgroundLocation = 0;
+    for_location = this.requestPermission('ohos.permission.LOCATION')
+    backgroundLocation = this.requestPermission('ohos.permission.LOCATION_IN_BACKGROUND')
+    if (for_location == 0 && backgroundLocation == 0) {
+      return false
+    }
     if (listener == null) return false;
     var locationEnable = false
     if (geolocation.isLocationEnabled()) {
@@ -202,17 +214,18 @@ export class LocationUtils {
     };
     context.verifyPermission(permission, options)
       .then((data) => {
-        return true
+        return 1;
       }).catch((error) => {
       let permissions = [request];
       let requestCode = 123
       context.requestPermissionsFromUser(permissions, requestCode)
         .then((data) => {
-          return true
+          return 1;
         }).catch((error) => {
-        return false
+        return 0;
       })
     })
+    return 0;
   }
 }
 
