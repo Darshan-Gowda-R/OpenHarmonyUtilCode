@@ -202,16 +202,15 @@ export class LocationUtils {
     };
     context.verifyPermission(permission, options)
       .then((data) => {
-        console.info('permission is granted ');
+        return true
       }).catch((error) => {
-      console.error('permission is not granted ');
       let permissions = [request];
       let requestCode = 123
       context.requestPermissionsFromUser(permissions, requestCode)
         .then((data) => {
-          console.info('permission granted by user ');
+          return true
         }).catch((error) => {
-        console.error('permission not granted by user');
+        return false
       })
     })
   }
