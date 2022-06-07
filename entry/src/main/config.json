@@ -66,27 +66,19 @@
         }
       }
     ],
-    "reqPermissions": [
+    "defPermissions": [
       {
-        "name": "ohos.permission.LOCATION"
-
-      },{
-        "name" : "ohos.permission.LOCATION_IN_BACKGROUND"
+        "name": "ohos.permission.LOCATION",
+        "grantMode": "user_grant",
+        "label": "Location Data",
+        "availableScope": ["signature"]
+      },
+      {
+        "name" : "ohos.permission.LOCATION_IN_BACKGROUND",
+        "grantMode": "user_grant",
+        "label": "Location In Background",
+        "availableScope": ["signature"]
       }
     ]
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
