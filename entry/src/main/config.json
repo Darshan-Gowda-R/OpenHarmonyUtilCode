@@ -70,14 +70,12 @@
       {
         "name": "ohos.permission.LOCATION",
         "grantMode": "user_grant",
-        "label": "Location Data",
-        "availableScope": ["signature"]
-      },
+        "label": "Location Data"
+       },
       {
         "name" : "ohos.permission.LOCATION_IN_BACKGROUND",
         "grantMode": "user_grant",
-        "label": "Location In Background",
-        "availableScope": ["signature"]
+        "label": "Location In Background"
       }
     ]
   }
