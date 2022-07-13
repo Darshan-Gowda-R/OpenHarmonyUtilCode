@@ -57,7 +57,8 @@
         "pages": [
           "pages/index",
           "pages/CleanUtilsSample",
-          "pages/LocationUtilsSample"
+          "pages/LocationUtilsSample",
+          "pages/NotificationSample"
         ],
         "name": ".MainAbility",
         "window": {
