@@ -21,11 +21,12 @@ import prompt from '@system.prompt';
 
 export class notificationUtil {
 
-  //let notificationRequest
-  constructor(){
+
+  constructor() {
     console.log("called notification class");
 
   }
+
   isNotificationEnable() {
     notification.isNotificationEnabled().then((data) => {
       console.info('Operation succeeded. Data: ' + JSON.stringify(data))
@@ -42,7 +43,7 @@ export class notificationUtil {
       });
   }
 
-  publish(data1){
+  publish(data1) {
     notification.publish(data1)
       .then((data) => {
         prompt.showToast({
@@ -59,7 +60,7 @@ export class notificationUtil {
     });
   }
 
-  publish2(data1){
+  publish2(data1) {
     var myContent = {
       contentType: notification.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT,
       normal: {
@@ -86,7 +87,8 @@ export class notificationUtil {
       });
     });
   }
-  cancel(id){
+
+  cancel(id) {
     notification.cancel(id).then((data) => {
       console.info('Operation succeeded. Data: ' + JSON.stringify(data))
     }).catch((err) => {
@@ -94,15 +96,15 @@ export class notificationUtil {
     });
   }
 
-  //  cancel(id , label){
-  //    notification.cancel(id, label).then((data) => {
-  //      console.info('Operation succeeded. Data: ' + JSON.stringify(data))
-  //    }).catch((err) => {
-  //      console.error('Operation failed. Cause: ' + JSON.stringify(err));
-  //    });
-  //  }
+//    cancel(id , label){
+//      notification.cancel(id, label).then((data) => {
+//        console.info('Operation succeeded. Data: ' + JSON.stringify(data))
+//      }).catch((err) => {
+//        console.error('Operation failed. Cause: ' + JSON.stringify(err));
+//      });
+//    }
 
-  cancelAll(){
+  cancelAll() {
     notification.cancelAll()
       .then((data) => {
         console.info('Cancelled all Notification ' + JSON.stringify(data))
@@ -111,126 +113,106 @@ export class notificationUtil {
     });
   }
 
-  addContent(data,text,title){
+  addContent(data, text, title) {
     var dict = []
-    dict.push({content:data,normal:{text:text,title:title}})
+    dict.push({ content: data, normal: { text: text, title: title } })
     return dict
   }
 
-  addId(data,request:number){
-    return data[0].id=request
+  addId(data, request: number) {
+    return data[0].id = request
   }
 
-  addSlotTypeMock(data,request){
-    return data[0].slotTypeMock=request
+  addSlotType(data, request) {
+    return data[0].slotType = request
   }
 
-  addisUnRemovable(data,request:Boolean){
-    return data[0].isUnremovable=request
+  addisOngoing(data, request: Boolean) {
+    return data[0].isOngoing = request
   }
 
-  addDeliveryTime(data,request){
-    return data[0].deliveryTime=request
+  addisUnRemovable(data, request: Boolean) {
+    return data[0].isUnremovable = request
   }
 
-  addTapDismissed(data,request:Boolean){
-    return data[0].tapDismissed=request
+  addDeliveryTime(data, request: number) {
+    return data[0].deliveryTime = request
   }
 
-  addAutoDeletedTime(data,request){
-    return data[0].autoDeletedTime=request
+  addTapDismissed(data, request: Boolean) {
+    return data[0].tapDismissed = request
   }
 
-  addWantAgent(data,request){
-    return data[0].wantAgent=request
+  addAutoDeletedTime(data, request: number) {
+    return data[0].autoDeletedTime = request
   }
 
-  addExtraInfo(data,request){
-    return data[0].extraInfo=request
+  addWantAgent(data, request) {
+    return data[0].wantAgent = request
   }
 
-  addColor(data,request){
-    return data[0].color=request
+  addExtraInfo(data, request) {
+    return data[0].extraInfo = request
   }
 
-  addColorEnabled(data,request:Boolean){
-    return data[0].colorEnabled=request
+  addColor(data, request: number) {
+    return data[0].color = request
   }
 
-  addisAlertOnce(data,request:Boolean){
-    return data[0].isAlertOnce=request
+  addColorEnabled(data, request: Boolean) {
+    return data[0].colorEnabled = request
   }
 
-  addisStopwatch(data,request:Boolean){
-    return data[0].isStopwatch=request
+  addisAlertOnce(data, request: Boolean) {
+    return data[0].isAlertOnce = request
   }
 
-  addisCountDown(data,request:Boolean){
-    return data[0].isCountDown=request
+  addisStopwatch(data, request: Boolean) {
+    return data[0].isStopwatch = request
   }
 
-  addisFloatingIcon(data,request:Boolean){
-    return data[0].isFloatingIcon=request
+  addisCountDown(data, request: Boolean) {
+    return data[0].isCountDown = request
   }
 
-  addLabel(data,request){
-    return data[0].label=request
+  addisFloatingIcon(data, request: Boolean) {
+    return data[0].isFloatingIcon = request
   }
 
-  addBadgeIconStyle(data,request){
-    return data[0].badgeIconStyle=request
+  addLabel(data, request: string) {
+    return data[0].label = request
   }
 
-  addShowDeliveryTime(data,request:Boolean){
+  addBadgeIconStyle(data, request: number) {
+    return data[0].badgeIconStyle = request
+  }
+
+  addShowDeliveryTime(data, request: Boolean) {
     console.log(JSON.stringify(data))
-    return data[0].showDeliveryTime=request
+    return data[0].showDeliveryTime = request
   }
 
-  addActionButtons(data,request){
-    return data[0].actionButtons=request
+  addActionButtons(data, request) {
+    return data[0].actionButtons = request
   }
 
-  addSmallIcon(data,request){
-    return data[0].smallIcon=request
+  addSmallIcon(data, request) {
+    return data[0].smallIcon = request
   }
 
-  addLargeIcon(data,request){
-    return data[0].largeIcon=request
+  addLargeIcon(data, request) {
+    return data[0].largeIcon = request
   }
 
-  addGroupName(data,request){
-    return data[0].groupName=request
+  addReadonlyCreatorBundleName(data, request) {
+    return data[0].readonlycreatorBundleName = request
   }
 
-  addCreatorBundleName(data,request){
-    return data[0].creatorBundleName=request
+  addReadonlyCreatorUid(data, request) {
+    return data[0].readonlycreatorUid = request
   }
 
-  addCreatorUid(data,request){
-    return data[0].creatorUid=request
+  addReadonlyCreatorPid(data, request) {
+    return data[0].readonlycreatorPid = request
   }
-
-  addCreatorPid(data,request){
-    return data[0].creatorPid=request
-  }
-
-  addClassification(data,request){
-    return data[0].classification=request
-  }
-
-  addHashCode(data,request){
-    return data[0].hashCode=request
-  }
-
-  addisRemveAllowd(data,request){
-    return data[0].isRemveAllowd=request
-  }
-
-  addSource(data,request){
-    return data[0].source=request
-  }
-  addTemplate(data,request){
-    return data[0].template=request
-  }
-
 }
